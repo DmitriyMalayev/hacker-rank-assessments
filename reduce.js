@@ -1,24 +1,22 @@
-// const array1 = [1, 2, 3, 4];
+const students = [
+  { name: "Alex", grade: 15 },
+  { name: "Devlin", grade: 15 },
+  { name: "Eagle", grade: 13 },
+  { name: "Sam", grade: 14 },
+];
 
-// const initialValue = 0;
-// const sumWithInitial = array1.reduce(
-//   (previousValue, currentValue) => previousValue + currentValue,
-//   initialValue
-// );
+students.sort((firstItem, secondItem) => firstItem.grade - secondItem.grade);
 
-// console.log(sumWithInitial);
+[
+  { name: "Eagle", grade: 13 },
+  { name: "Sam", grade: 14 },
+  { name: "Alex", grade: 15 }, // original maintained for similar grade (stable sorting)
+  { name: "Devlin", grade: 15 }, // original maintained for similar grade (stable sorting)
+];
 
-const getMax = (a, b) => Math.max(a, b);
-
-// callback is invoked for each element in the array starting at index 0
-[1, 100].reduce(getMax, 50); // 100
-[    50].reduce(getMax, 10); // 50
-
-// callback is invoked once for element at index 1
-[1, 100].reduce(getMax);     // 100
-
-// callback is not invoked
-[    50].reduce(getMax);     // 50
-[      ].reduce(getMax, 1);  // 1
-
-[      ].reduce(getMax);     // TypeError
+[
+  { name: "Eagle", grade: 13 },
+  { name: "Sam", grade: 14 },
+  { name: "Devlin", grade: 15 }, // original order not maintained
+  { name: "Alex", grade: 15 }, // original order not maintained
+];
