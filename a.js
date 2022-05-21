@@ -1,30 +1,75 @@
-function test() {
-  "use strict";
+var o;
 
-  let obj1 = { a: 0, b: { c: 0 } };
-  let obj2 = Object.assign({}, obj1);
-  console.log(JSON.stringify(obj2));
-  console.log(obj2);
+// create an object with null as prototype
+o = Object.create(null);
 
-  obj1.a = 1;
-  console.log(JSON.stringify(obj1));
-  console.log(JSON.stringify(obj2));
+o = {};
+// is equivalent to:
+o = Object.create(Object.prototype);
 
-  obj2.a = 3;
-  console.log(JSON.stringify(obj1));
-  console.log(JSON.stringify(obj2));
+// Example where we create an object with a couple of sample properties. (Note that the second parameter maps keys to *property descriptors*.)
+o = Object.create(Object.prototype, {
+  foo: {
+    // foo is a regular 'value property'
+    writable: true,
+    configurable: true,
+    value: "hello",
+  },
+  bar: {
+    // bar is a getter-and-setter (accessor) property
+    configurable: false,
+    get: function () {
+      return 10;
+    },
+    set: function (value) {
+      console.log("Setting `o.bar` to", value);
+    },
+    /* with ES2015 Accessors our code can look like this
+    get() { return 10; },
+    set(value) {
+      console.log('Setting `o.bar` to', value);
+    } */
+  },
+});
 
-  // obj2.b.c = 3;
-  console.log(JSON.stringify(obj1));
-  console.log(JSON.stringify(obj2));
+function Constructor() {}
+o = new Constructor();
+// is equivalent to:
+o = Object.create(Constructor.prototype);
+// Of course, if there is actual initialization code in the Constructor function, the Object.create() cannot reflect it
+// Create a new object whose prototype is a new, empty object and add a single property 'p', with value 42.
 
-  // Deep Clone
-  obj1 = { a: 0, b: { c: 0 } };
-  let obj3 = JSON.parse(JSON.stringify(obj1));
-  obj1.a = 4;
-  obj1.b.c = 4;
-  console.log(obj2);
-  console.log(JSON.stringify(obj3));
+o = Object.create({}, { p: { value: 42 } });
+
+// by default properties ARE NOT writable, enumerable or configurable:
+o.p = 24;
+o.p;
+// 42
+
+o.q = 12;
+for (var prop in o) {
+  console.log(prop);
 }
+// 'q'
 
-test();
+delete o.p;
+// false
+
+// to specify an ES3 property
+o2 = Object.create(
+  {},
+  {
+    p: {
+      value: 42,
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    },
+  }
+); 
+
+
+// Object.getOwnPropertyDescriptors(o2)
+/* is not equivalent to:
+This will create an object with prototype : {p: 42 }
+o2 = Object.create({p: 42}) */
