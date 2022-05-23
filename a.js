@@ -1,75 +1,51 @@
-var o;
+function defineProperties(obj, properties) {
+  function convertToDescriptor(desc) {
+    function hasProperty(obj, prop) {
+      return Object.prototype.hasOwnProperty.call(obj, prop);
+    }
 
-// create an object with null as prototype
-o = Object.create(null);
+    function isCallable(v) {
+      // NB: modify as necessary if other values than functions are callable.
+      return typeof v === "function";
+    }
 
-o = {};
-// is equivalent to:
-o = Object.create(Object.prototype);
+    if (typeof desc !== "object" || desc === null) throw new TypeError("bad desc");
 
-// Example where we create an object with a couple of sample properties. (Note that the second parameter maps keys to *property descriptors*.)
-o = Object.create(Object.prototype, {
-  foo: {
-    // foo is a regular 'value property'
-    writable: true,
-    configurable: true,
-    value: "hello",
-  },
-  bar: {
-    // bar is a getter-and-setter (accessor) property
-    configurable: false,
-    get: function () {
-      return 10;
-    },
-    set: function (value) {
-      console.log("Setting `o.bar` to", value);
-    },
-    /* with ES2015 Accessors our code can look like this
-    get() { return 10; },
-    set(value) {
-      console.log('Setting `o.bar` to', value);
-    } */
-  },
-});
+    var d = {};
 
-function Constructor() {}
-o = new Constructor();
-// is equivalent to:
-o = Object.create(Constructor.prototype);
-// Of course, if there is actual initialization code in the Constructor function, the Object.create() cannot reflect it
-// Create a new object whose prototype is a new, empty object and add a single property 'p', with value 42.
+    if (hasProperty(desc, "enumerable")) d.enumerable = !!desc.enumerable;
+    if (hasProperty(desc, "configurable")) d.configurable = !!desc.configurable;
+    if (hasProperty(desc, "value")) d.value = desc.value;
+    if (hasProperty(desc, "writable")) d.writable = !!desc.writable;
+    if (hasProperty(desc, "get")) {
+      var g = desc.get;
 
-o = Object.create({}, { p: { value: 42 } });
+      if (!isCallable(g) && typeof g !== "undefined") throw new TypeError("bad get");
+      d.get = g;
+    }
+    if (hasProperty(desc, "set")) {
+      var s = desc.set;
+      if (!isCallable(s) && typeof s !== "undefined") throw new TypeError("bad set");
+      d.set = s;
+    }
 
-// by default properties ARE NOT writable, enumerable or configurable:
-o.p = 24;
-o.p;
-// 42
+    if (("get" in d || "set" in d) && ("value" in d || "writable" in d))
+      throw new TypeError("identity-confused descriptor");
 
-o.q = 12;
-for (var prop in o) {
-  console.log(prop);
-}
-// 'q'
-
-delete o.p;
-// false
-
-// to specify an ES3 property
-o2 = Object.create(
-  {},
-  {
-    p: {
-      value: 42,
-      writable: true,
-      enumerable: true,
-      configurable: true,
-    },
+    return d;
   }
-); 
 
+  if (typeof obj !== "object" || obj === null) throw new TypeError("bad obj");
 
-// Object.getOwnPropertyDescriptors(o2)
-/* is not equivalent to:
-This will create an object with prototype : {p: 42 }
-o2 = Object.create({p: 42}) */
+  properties = Object(properties);
+
+  var keys = Object.keys(properties);
+  var descs = [];
+
+  for (var i = 0; i < keys.length; i++)
+    descs.push([keys[i], convertToDescriptor(properties[keys[i]])]);
+
+  for (var i = 0; i < descs.length; i++) Object.defineProperty(obj, descs[i][0], descs[i][1]);
+
+  return obj;
+}
