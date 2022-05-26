@@ -14,6 +14,7 @@ var romanToInt = function (s) {
   for (let i = 0; i < s.length; i++) {
     let currentInt = list[s.charAt(i)]; //Look at the first roman numeral pass it through the map and get the value
     let nextInt = list[s.charAt(i + 1)];
+    console.log(nextInt);
 
     if (nextInt) {
       //Checks for presence of a nextInt (edge case)
@@ -30,7 +31,7 @@ var romanToInt = function (s) {
   }
   return total;
 };
-romanToInt("III")
+romanToInt("III");
 // var romanToInt = function (s) {
 //   const map = {
 //     I: 1,

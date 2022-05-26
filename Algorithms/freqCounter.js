@@ -6,7 +6,7 @@ function frequencyCounter(arr1, arr2) {
   newArray.sort((a, b) => a - b);
   arr2.sort((a, b) => a - b);
 
-  console.log(newArray);
+  console.log(newArray.concat(["Dmitriy"]));
   console.log(arr2);
   return newArray.values == arr2.values;
 }

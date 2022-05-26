@@ -3,6 +3,7 @@ function charCount(str) {
   str = str.toLowerCase().replace(/[\s.;,?%0-9]/g, "");
 
   for (let char of str) {
+    
     result[char] = ++result[char] || 1;
 
     // if (result[char] > 0) {
