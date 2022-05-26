@@ -26,8 +26,8 @@ if (!Array.prototype.justLetter) {
     });
     return arr;
   };
-} 
-let names =  ["abc", "def", { a: 1 }, "cab", "dac", 123];
+}
+let names = ["abc", "def", { a: 1 }, "cab", "dac", 123];
 console.log(names);
 console.log(names.justLetter("d"));
 
