@@ -337,20 +337,61 @@
 //   //makes sure to restart the process and do recursion through a row as well.
 // }
 
-function steps(num, row = 0, stair = "") {
-  if (num === row) {
+// function steps(num, row = 0, stair = "") {
+//   if (num === row) {
+//     return;
+//   }
+//   if (num === stair.length) {
+//     console.log(stair);
+//     steps(num, row + 1, "");
+//   }
+//   if (stair <= row) {
+//     stair += "#";
+//   } else {
+//     stair += " ";
+//   }
+//   stair(num, row, stair);
+// }
+
+// console.log(steps(3));
+
+// function pyramidBuilder(n) {
+//   let midpoint = Math.floor((n * 2 - 1) / 2);
+//   for (let row = 0; row < n; row++) {
+//     let level = "";
+//     for (let column = 0; column < 2 * n - 1; column++) {
+//       if (midpoint - row <= column && midpoint + row >= column) {
+//         level += "#";
+//       } else {
+//         level += " ";
+//       }
+//     }
+//     console.log(level);
+//   }
+// }
+// console.log(pyramidBuilder(3));
+
+// let columns = [0, 1, 2, 3, 4]
+// We calculate the midpoint of our array.Then we take row number of elements on either side of the midpoint and make them into #
+// let row = 0
+
+function pyramid(n, row = 0, level = "") {
+  if (row === n) {
     return;
   }
-  if (num === stair.length) {
-    console.log(stair);
-    steps(num, row + 1, "");
-  }
-  if (stair <= row) {
-    stair += "#";
-  } else {
-    stair += " ";
-  }
-  stair(num, row, stair);
-}
 
-console.log(steps(3));
+  if (level.length === 2 * n - 1) {
+    console.log(level);
+    return pyramid(n, row + 1);
+  }
+
+  const midpoint = Math.floor((2 * n - 1) / 2);
+  let add;
+  if (midpoint - row <= level.length && midpoint + row >= level.length) {
+    add = "#";
+  } else {
+    add = " ";
+  }
+  pyramid(n, row, level + add);
+}
+console.log(pyramid(3));
