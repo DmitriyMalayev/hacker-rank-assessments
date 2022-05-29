@@ -375,23 +375,66 @@
 // We calculate the midpoint of our array.Then we take row number of elements on either side of the midpoint and make them into #
 // let row = 0
 
-function pyramid(n, row = 0, level = "") {
-  if (row === n) {
-    return;
+// function pyramid(n, row = 0, level = "") {
+//   if (row === n) {
+//     return;
+//   }
+
+//   if (level.length === 2 * n - 1) {
+//     console.log(level);
+//     return pyramid(n, row + 1);
+//   }
+
+//   const midpoint = Math.floor((2 * n - 1) / 2);
+//   let add;
+//   if (midpoint - row <= level.length && midpoint + row >= level.length) {
+//     add = "#";
+//   } else {
+//     add = " ";
+//   }
+//   pyramid(n, row, level + add);
+// }
+// console.log(pyramid(3));
+
+// function howManyVowels(str) {
+//   let count = 0;
+//   let checker = ["a", "e", "i", "o", "u"];
+
+//   for (let char of str.toLowerCase()) {
+//     if (checker.includes(char)) {
+//       count += 1;
+//     }
+//   }
+//   return count;
+// }
+
+// function howManyVowels2(str) {
+//   let matches = str.match(/[aeiou]/gi);
+//   return matches ? matches.length : 0;
+// }
+
+// console.log(howManyVowels("aeiou"));
+// console.log(howManyVowels2("aeiou"));
+
+function matrix(n) {
+  const results = [];
+
+  for (let i = 0; i < n; i++) {
+    results.push([]);
   }
 
-  if (level.length === 2 * n - 1) {
-    console.log(level);
-    return pyramid(n, row + 1);
-  }
+  let counter = 1;
+  let startColumn = 0;
+  let startRow = 0;
 
-  const midpoint = Math.floor((2 * n - 1) / 2);
-  let add;
-  if (midpoint - row <= level.length && midpoint + row >= level.length) {
-    add = "#";
-  } else {
-    add = " ";
+  let endColumn = n - 1;
+  let endRow = n - 1;
+
+  while (startColumn <= endColumn && startRow <= endRow) {    
+    
   }
-  pyramid(n, row, level + add);
 }
-console.log(pyramid(3));
+
+// const arr = []
+// arr[3] = "Hello There"
+// console.log(arr)
