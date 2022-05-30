@@ -416,4 +416,59 @@
 // console.log(howManyVowels("aeiou"));
 // console.log(howManyVowels2("aeiou"));
 
+// function matrix(n) {
+//   const results = [];
+//   for (i = 0; i < n; i++) {
+//     results.push([]);
+//   }
 
+//   let counter = 1;
+//   let startColumn = 0;
+//   let startRow = 0;
+//   let endColumn = n - 1;
+//   let endRow = n - 1;
+
+//   while (startColumn <= endColumn && startRow <= endRow) {
+//     for (let i = startColumn; i <= endColumn; i++) {
+//       results[startRow][i] = counter;
+//       counter++;
+//     }
+//     startRow++;
+//     for (let i = startRow; i <= endRow; i++) {
+//       results[i][endColumn] = counter;
+//       counter++;
+//     }
+//     endColumn--;
+//     for (let i = endColumn; i >= startColumn; i--) {
+//       results[endRow][i] = counter;
+//       counter++;
+//     }
+//     endRow--;
+
+//     for (let i = endRow; i >= startRow; i--) {
+//       results[i][startColumn] = counter;
+//       counter++;
+//     }
+//     startColumn++;
+//   }
+//   return results;
+// }
+// console.log(matrix(3));
+
+// function fib(n) {
+//   const result = [0, 1];
+
+//   for (let i = 2; i <= n; i++) {
+//     result.push([i - 1 + i - 2]);
+//   }
+//   return result.flat()[n];
+// }
+// console.log(fib(5));
+
+// function fibRec(n) {
+//   if (n < 2) {
+//     return n;
+//   }
+
+//   return fibRec(n-1) + fibRec(n-2)
+// }
