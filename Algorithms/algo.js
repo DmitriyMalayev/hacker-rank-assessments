@@ -1,3 +1,4 @@
+const qu = require("qu");
 // function shapeArea(num) {
 //   let area = 1;
 
@@ -465,10 +466,126 @@
 // }
 // console.log(fib(5));
 
-// function fibRec(n) {
+// function memoize(fn) {
+//   const cache = {};
+
+//   return function (...args) {
+//     if (cache[args]) {
+//       return cache[args];
+//     }
+//     const result = fn.apply(this, args);
+//     cache[args] = result;
+//     return result;
+//   };
+// }
+
+// function slowFib(n) {
 //   if (n < 2) {
 //     return n;
 //   }
 
-//   return fibRec(n-1) + fibRec(n-2)
+//   return fib(n - 1) + fib(n - 2);
 // }
+
+// const fib = memoize(slowFib);
+
+// console.log(fib(5));
+
+// class Queue {
+//   constructor() {
+//     this.data = [];
+//   }
+
+//   add(record) {
+//     this.data.unshift(record);
+//   }
+//   remove() {
+//     return this.data.pop()
+//   }
+// }
+
+// class Queue {
+//   constructor() {
+//     this.data = [];
+//   }
+
+//   add(record) {
+//     this.data.unshift(record)
+//   }
+
+//   peek() {
+//    return this.data[data.length -1]
+//   }
+// }
+
+// class Queue {
+//   constructor() {
+//     this.data = [];
+//   }
+
+//   add(record) {
+//     this.data.unshift(record);
+//   }
+
+//   remove() {
+//     return this.data.pop();
+//   }
+
+//   peek() {
+//     return this.data[this.data.length - 1];
+//     // this.data[data.length - 1];
+//     // return answer;
+//   }
+// }
+
+// const q = new Queue();
+// q.add(1);
+// q.add(2);
+// q.peek();
+// console.log(q)
+// console.log(q.data)
+
+class Queue {
+  constructor() {
+    this.data = [];
+  }
+  add(record) {
+    this.data.unshift(record);
+  }
+  remove() {
+    return this.data.pop();
+  }
+  peek() {
+    return this.data[this.data.length - 1];
+  }
+}
+
+function weave(sourceOne, sourceTwo) {
+  const queueThree = new Queue();
+
+  while (sourceOne.peek() || sourceTwo.peek()) {
+    if (sourceOne.peek()) {
+      queueThree.add(sourceOne.remove());
+    }
+    if (sourceTwo.peek()) {
+      queueThree.add(sourceTwo.remove());
+    }
+  }
+  return queueThree;
+}
+
+const queueOne = new Queue();
+queueOne.add(1);
+queueOne.add(2);
+
+const queueTwo = new Queue();
+queueTwo.add("Hello");
+queueTwo.add("There");
+
+weave(queueOne, queueTwo);
+
+// console.log(queueThree);
+// console.log(weave(queueOne, queueTwo));
+// const q = weave(queueOne, queueTwo);
+// console.log(queueThree);
+// console.log(queueOne, queueTwo);
