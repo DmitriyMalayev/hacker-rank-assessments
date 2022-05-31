@@ -545,47 +545,91 @@ const qu = require("qu");
 // console.log(q)
 // console.log(q.data)
 
-class Queue {
-  constructor() {
-    this.data = [];
-  }
-  add(record) {
-    this.data.unshift(record);
-  }
-  remove() {
-    return this.data.pop();
-  }
-  peek() {
-    return this.data[this.data.length - 1];
-  }
-}
+// class Queue {
+//   constructor() {
+//     this.data = [];
+//   }
+//   add(record) {
+//     this.data.unshift(record);
+//   }
+//   remove() {
+//     return this.data.pop();
+//   }
+//   peek() {
+//     return this.data[this.data.length - 1];
+//   }
+// }
 
-function weave(sourceOne, sourceTwo) {
-  const queueThree = new Queue();
+// function weave(sourceOne, sourceTwo) {
+//   const queueThree = new Queue();
 
-  while (sourceOne.peek() || sourceTwo.peek()) {
-    if (sourceOne.peek()) {
-      queueThree.add(sourceOne.remove());
-    }
-    if (sourceTwo.peek()) {
-      queueThree.add(sourceTwo.remove());
-    }
-  }
-  return queueThree;
-}
+//   while (sourceOne.peek() || sourceTwo.peek()) {
+//     if (sourceOne.peek()) {
+//       queueThree.add(sourceOne.remove());
+//     }
+//     if (sourceTwo.peek()) {
+//       queueThree.add(sourceTwo.remove());
+//     }
+//   }
+//   return queueThree;
+// }
 
-const queueOne = new Queue();
-queueOne.add(1);
-queueOne.add(2);
+// const queueOne = new Queue();
+// queueOne.add(1);
+// queueOne.add(2);
 
-const queueTwo = new Queue();
-queueTwo.add("Hello");
-queueTwo.add("There");
+// const queueTwo = new Queue();
+// queueTwo.add("Hello");
+// queueTwo.add("There");
 
-weave(queueOne, queueTwo);
+// weave(queueOne, queueTwo);
 
 // console.log(queueThree);
 // console.log(weave(queueOne, queueTwo));
 // const q = weave(queueOne, queueTwo);
 // console.log(queueThree);
 // console.log(queueOne, queueTwo);
+
+//  QUEUE FROM STACK
+
+class Queue {
+  constructor() {
+    this.first = new Stack();
+    this.second = new Stack();
+  }
+  add(record) {
+    this.first.push(record);
+  }
+  peek() {
+    while (this.first.peek()) {
+      this.second.push(this.first.pop());
+    }
+    const record = this.second.peek();
+    while (this.second.peek()) {
+      this.first.push(this.second.pop());
+    }
+    return record;
+  }
+  remove() {
+    while (this.first.peek()) {
+      this.second.add(this.first.pop());
+    }
+    const record = this.second.pop();
+
+    while (this.second.peek()) {
+      this.first.add(this.second.pop());
+    }
+    return record;
+  }
+}
+
+//   while (sourceOne.peek() || sourceTwo.peek()) {
+//     if (sourceOne.peek()) {
+//       queueThree.add(sourceOne.remove());
+//     }
+//     if (sourceTwo.peek()) {
+//       queueThree.add(sourceTwo.remove());
+//     }
+//   }
+//   return queueThree;
+// }
