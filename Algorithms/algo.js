@@ -592,36 +592,36 @@ const qu = require("qu");
 
 //  QUEUE FROM STACK
 
-class Queue {
-  constructor() {
-    this.first = new Stack();
-    this.second = new Stack();
-  }
-  add(record) {
-    this.first.push(record);
-  }
-  peek() {
-    while (this.first.peek()) {
-      this.second.push(this.first.pop());
-    }
-    const record = this.second.peek();
-    while (this.second.peek()) {
-      this.first.push(this.second.pop());
-    }
-    return record;
-  }
-  remove() {
-    while (this.first.peek()) {
-      this.second.add(this.first.pop());
-    }
-    const record = this.second.pop();
+// class Queue {
+//   constructor() {
+//     this.first = new Stack();
+//     this.second = new Stack();
+//   }
+//   add(record) {
+//     this.first.push(record);
+//   }
+//   peek() {
+//     while (this.first.peek()) {
+//       this.second.push(this.first.pop());
+//     }
+//     const record = this.second.peek();
+//     while (this.second.peek()) {
+//       this.first.push(this.second.pop());
+//     }
+//     return record;
+//   }
+//   remove() {
+//     while (this.first.peek()) {
+//       this.second.add(this.first.pop());
+//     }
+//     const record = this.second.pop();
 
-    while (this.second.peek()) {
-      this.first.add(this.second.pop());
-    }
-    return record;
-  }
-}
+//     while (this.second.peek()) {
+//       this.first.add(this.second.pop());
+//     }
+//     return record;
+//   }
+// }
 
 //   while (sourceOne.peek() || sourceTwo.peek()) {
 //     if (sourceOne.peek()) {
@@ -633,3 +633,78 @@ class Queue {
 //   }
 //   return queueThree;
 // }
+
+// LINKED LISTS
+
+// const nodeOne = {
+//   data: 123
+// }
+
+// const nodeTwo = {
+//   data: 456
+// }
+
+// nodeOne.next = nodeTwo
+
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+  size() {
+    let counter = 0;
+    let node = this.head;
+    while (node) {
+      counter++;
+      node = node.next;
+    }
+    return counter;
+  }
+  getFirst() {
+    return this.head;
+  }
+  getLast() {
+    if (!this.head) {
+      return null;
+    }
+    let node = this.head;
+    while (node) {
+      if (!node.next) {
+        return node;
+      }
+      node = node.next;
+    }
+  }
+  clear() {
+    return this.head = 0
+  }
+}
+
+const nodeOne = new Node(5, this.head);
+
+const list = new LinkedList();
+
+list.insertFirst("Hello");
+list.insertFirst("Hi");
+
+list.size();
+list;
+list.getFirst();
+list.getLast();
+list.clear()
+list.size()
+// list.forEach(a => {})
+// console.log(list)
+// list
+
+// list.head = new Node(10);
+
+//
