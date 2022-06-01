@@ -684,27 +684,49 @@ class LinkedList {
     }
   }
   clear() {
-    return this.head = 0
+    return (this.head = 0);
+  }
+
+  removeFirst() {
+    if (!this.head) {
+      return null;
+    }
+    return (this.head = this.head.next);
+  }
+  removeLast() {
+    if (!this.head) {
+      return;
+    }
+    if (!this.head.next) {
+      this.head = null;
+      return;
+    }
+    let previous = this.head;
+    let node = this.head.next;
+    // console.log(node)
+    // console.log(node.next)
+
+    while (node.next) {
+      
+      previous = node;
+      node = node.next;
+    }
+    previous.next = null;
   }
 }
-
-const nodeOne = new Node(5, this.head);
-
 const list = new LinkedList();
 
 list.insertFirst("Hello");
 list.insertFirst("Hi");
+list.insertFirst("Hi there");
+list.removeLast()
+list
 
-list.size();
-list;
-list.getFirst();
-list.getLast();
-list.clear()
-list.size()
-// list.forEach(a => {})
-// console.log(list)
-// list
+// list.removeLast();
+// list.size();
 
-// list.head = new Node(10);
-
-//
+// list.getFirst();
+// list.getLast();
+// list.removeFirst();
+// list.clear();
+// list.size();
