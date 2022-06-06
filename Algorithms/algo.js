@@ -858,5 +858,48 @@ of the tree at each level.
 */
 
 function levelWidth(root) {
-    
+  let newArray = [root, "s"];
+  let counters = [0];
+
+  while (arr.length > 1) {
+    const node = newArray.shift();
+    if (node === "s") {
+      counters.push(0);
+      newArray.push("s");
+    } else {
+      newArray.push(...node.children);
+      counters[counters.length - 1]++;
+    }
+  }
+  return counters;
 }
+
+/*
+Implement the Node class to create a Binary Search tree.
+The constructor should initialize with the values "data", "left", and "right".
+Implement the "insert" method on the Node class. 
+Insert should accept an argument "data" and then create an insert a new node at 
+the appropriate location in the tree. 
+*/
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+  insert(data) {
+    if (data < this.data && this.left) {
+      this.left.insert(data) 
+    }
+  }
+
+  insert2(data) {
+    let newNode = new Node(data)
+    if (newNode < this.left) {
+      this.left = newNode
+    } else {
+      this.right = newNode
+    }
+  }
+} 
