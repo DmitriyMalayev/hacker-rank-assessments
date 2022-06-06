@@ -890,16 +890,29 @@ class Node {
   }
   insert(data) {
     if (data < this.data && this.left) {
-      this.left.insert(data) 
+      this.left.insert(data);
+    } else if (data < this.data) {
+      this.left = new Node(data);
+    } else if (data > this.data && this.right) {
+      this.right.insert(data);
+    } else if (data > this.data) {
+      this;
     }
   }
+  /*
+  Implement a contains method that accepts "data" as an argument and returns the entire node in the tree with the same value. 
+  If it doesn't find it, return null.  
+  */
 
-  insert2(data) {
-    let newNode = new Node(data)
-    if (newNode < this.left) {
-      this.left = newNode
-    } else {
-      this.right = newNode
+  contains(data) {
+    if (this.data === data) {
+      return this;
     }
+    if (this.data < data && this.right) {
+      return this.right.contains(data);
+    } else if (this.data > data && this.left) {
+      return this.left.contains(data);
+    }
+    return null;
   }
-} 
+}
