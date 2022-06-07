@@ -916,3 +916,50 @@ class Node {
     return null;
   }
 }
+
+/*
+Ensure that every node's left hand child is less than the parent node's value
+Ensure that every node's right hand child is greater than the parent node's value
+*/
+
+function validate(node, min = null, max = null) {
+  if (max !== null && node.data > max) {
+    return false;
+  }
+  if (min !== null && node.data < min) {
+    return false;
+  }
+
+  if (node.left && !validate(node.left, min, node.data)) {
+    return false;
+  }
+  if (node.right && !validate(node.right, node.data, max)) {
+    return false;
+  }
+  return true;
+}
+
+// Custom Eventing Library
+class Events {
+  constructor() {
+    this.events = {};
+  } //Register an event handler
+  on(eventName, callback) {
+    if (this.events[eventName]) {
+      this.events[eventName].push(callback);
+    } else {
+      this.events.eventName = [callback];
+    }
+  }
+  // Trigger all callbacks associated with a given eventName
+  trigger(eventName) {
+    if (this.events[eventName]) {
+      for (let cb of this.events[eventName]) {
+        cb();
+      }
+    }
+  }
+  off(eventName) {
+    delete this.events[eventName]; 
+  }
+}
