@@ -1016,3 +1016,8 @@ function merge(left, right) {
   }
   return [...results, ...left, ...right];
 }
+
+
+function same(arr1, arr2){
+  
+}
