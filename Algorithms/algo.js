@@ -1017,7 +1017,148 @@ function merge(left, right) {
   return [...results, ...left, ...right];
 }
 
-
-function same(arr1, arr2){
-  
+function sameSlow(arr1, arr2) {
+  //Quadratic Time N ^ 2
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  for (let i = 0; i < arr.length; i++) {
+    let correctIndex = arr2.indexOf(arr1[i] ** 2); //indexOf is also a loop
+    if (correctIndex === -1) {
+      return false;
+    }
+    arr2.splice(correctIndex, 1); //removes the value that's found
+  }
 }
+console.log(sameSlow([1, 2, 3, 2], [9, 1, 4, 4]));
+
+// Linear Time O(n)
+//Making an object with how many numbers each number occurs
+function sameFast(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  let freqCounter1 = {};
+  let freqCounter2 = {};
+
+  for (let val of arr1) {
+    freqCounter1[val] = (freqCounter1[val] || 0) + 1;
+  }
+
+  for (let val of arr2) {
+    freqCounter2[val] = (freqCounter2[val] || 0) + 1;
+  }
+
+  for (let key in freqCounter1) {
+    if (!(key ** 2 in freqCounter2)) {
+      return false;
+    }
+    if (freqCounter2[key ** 2] !== freqCounter1[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(sameFast([1, 2, 2, 3, 2, 5], [9, 1, 4, 4, 11, 5]));
+
+function validAnagram(word1, word2) {
+  if (word1.length !== word2.length) {
+    return false;
+  }
+  let freqCount1 = {};
+  let freqCount2 = {};
+
+  for (let char of word1) {
+    freqCount1[char] = (freqCount1[char] || 0) + 1;
+    freqCount1;
+  }
+
+  for (let char of word2) {
+    freqCount2[char] = (freqCount2[char] || 0) + 1;
+  }
+
+  for (let key in freqCount1) {
+    if (!key in freqCount2) {
+      return false;
+    }
+    if (freqCount1[key] !== freqCount2[key]) {
+      return false;
+    }
+  }
+  // return (
+  //   freqCount1.keys === freqCount2.keys &&
+  //   freqCount1.values === freqCount2.values
+  // );
+  return true;
+}
+console.log(validAnagram("anagram", "nagaram"));
+
+function validAnagram2(first, second) {
+  if (first.length !== second.length) {
+    return false;
+  }
+  const lookup = {};
+  for (let i = 0; i < first.length; i++) {
+    lookup[first[i]] ? (lookup[first[i]] += 1) : (lookup[first[i]] = 1);
+  }
+  for (let i = 0; i < second.length; i++) {
+    if (!lookup[second[i]]) {
+      return false;
+    } else {
+      lookup[second[i]] -= 1;
+    }
+    console.log(lookup);
+  }
+  return true;
+}
+
+console.log(validAnagram2("anagram", "nagaram"));
+function sumZeroSlow(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === 0) {
+        return [arr[i], arr[j]];
+      }
+    }
+  }
+}
+console.log(sumZeroSlow([-4, -3, -2, -1, 0, 1, 2, 5]));
+
+function sumZeroFast(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    //fail safe to prevent 0 - 0   NOT left <= right
+    let sum = arr[left] + arr[right];
+    if (sum === 0) {
+      return [arr[left], arr[right]];
+    } else if (sum > 0) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+}
+console.log(sumZeroFast([-4, -3, -2, -1, 0, 1, 2, 5]));
+
+function countUniqueValues(arr) {
+  return Array.from(new Set(arr)).length;
+}
+
+function countUniqueValues2(arr) {
+  if (arr.length === 0) {
+    return 0;
+  }
+  let i = 0;
+  for (let j = 1; j < arr.length; j++) {
+    if (arr[i] !== arr[j]) {
+      i++;
+      arr[i] = arr[j];
+    }
+  }
+  return i + 1;
+}
+
+console.log(countUniqueValues2([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]));
+
+console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]));
