@@ -1162,3 +1162,21 @@ function countUniqueValues2(arr) {
 console.log(countUniqueValues2([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]));
 
 console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]));
+
+function maxSubArraySumSlow(arr, num) {
+  if (num > arr.length) {
+    return null;
+  }
+  let max = -Infinity;
+  //accounts for the case in which we have all negative numbers. The biggest sum will still be negative.
+  for (let i = 0; i < arr.length - num + 1; i++) {
+    temp = 0;
+    for (let j = 0; j < num; j++) {
+      temp += arr[i + j];
+    }
+    if (temp > max) {
+      max = temp;
+    }
+  }
+  return max;
+}
