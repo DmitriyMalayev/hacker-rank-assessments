@@ -59,17 +59,60 @@
 
 // console.log(sameFrequency(123, 321));
 
-function areThereDuplicates(...args) {
-  let freqCounter = {}
-  for (let char of args){
-    if (freqCounter[char]){
-      freqCounter[char] += 1
-      return true
+// function areThereDuplicates(...args) {
+//   let freqCounter = {}
+//   for (let char of args){
+//     if (freqCounter[char]){
+//       freqCounter[char] += 1
+//       return true
+//     } else {
+//       freqCounter[char] = 1
+//     }
+//   }
+//   return false
+// }
+
+// console.log(areThereDuplicates(1, 2, 3, 3, "a"));
+
+// function twoSum(nums, target) {
+//   let previousValues = {};
+//   for (let i = 0; i < nums.length; i++) {
+//     let currentNumber = nums[i];
+//     let neededNumber = target - currentNumber;
+//     let index2 = previousValues[neededNumber];
+//     if (index2 != null) {
+//       return [index2, i];
+//     } else {
+//       previousValues[currentNumber] = i;
+//     }
+//   }
+// }
+
+// console.log(twoSum([1,2,3,4,5,6], 8))
+
+function twoSumIndexes(nums, target) {
+  let newObj = {};
+  for (let i = 0; i < nums.length; i++) {
+    let currentNumber = nums[i];
+    let difference = target - currentNumber;
+    if (newObj[difference]) {
+      return [newObj[difference], i];
     } else {
-      freqCounter[char] = 1
+      newObj[currentNumber] = i;
     }
   }
-  return false
 }
-
-console.log(areThereDuplicates(1, 2, 3, 3, "a"));
+function twoSumNumbers(nums, target) {
+  let newObj = {};
+  for (let i = 0; i < nums.length; i++) {
+    let currentNumber = nums[i];
+    let difference = target - currentNumber;
+    if (newObj[difference]) {
+      return [nums[newObj[difference]], nums[i]];
+    } else {
+      newObj[currentNumber] = i;
+    }
+  }
+}
+console.log(twoSumIndexes([1, 2, 3, 4, 5, 6], 11));
+console.log(twoSumNumbers([1, 2, 3, 4, 5, 6], 11));
