@@ -9,3 +9,7 @@ function countUpAndDown() {
   }
   console.log("Back Down Bye");
 }
+
+
+
+isSubsequence("hello", "hello world")

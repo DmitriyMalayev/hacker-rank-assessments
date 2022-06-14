@@ -1,118 +1,113 @@
-// // Divide an Conquer
-// // search takes in a sorted array and a value. Returns the index where the value is or returns -1.
 
-// function searchSlow(arr, value) {
-//   for (let i = 0; i < arr.length; i++) {
-//     if (arr[i] === value) {
-//       return i;
-//     }
-//   }
-//   return -1;
-// }
 
-// function searchFast1(arr, value) {
-//   return arr.findIndex((v) => v === value);
-// }
-
-// function searchFast2(arr, value) {
-//   let min = 0;
-//   let max = array.length - 1;
-
-//   while (min <= max) {
-//     let middle = Math.floor((min + max) / 2);
-//     let currentElement = arr[middle];
-//     if (arr[middle] < value) {
-//       min = middle + 1;
-//     } else if (array[middle] > value) {
-//       max = middle - 1;
-//     } else {
-//       return middle;
-//     }
-//   }
-//   return -1;
-// }
-
-// console.log(searchSlow([1, 2, 3]))
-// console.log(searchSlow(arr.findIndex((v => v === value))))
-
-// function sameFrequency(first, second) {
-//   let freqCounter1 = {};
-//   let freqCounter2 = {};
-
-//   for (let num of first.toString()) {
-//     if (freqCounter1[num]) {
-//       freqCounter1[num] += 1;
-//     } else {
-//       freqCounter1[num] = 1;
-//     }
-//   }
-//   for (let num of second.toString()) {
-//     if (freqCounter2[num]) {
-//       freqCounter2[num] += 1;
-//     } else {
-//       freqCounter2[num] = 1;
-//     }
-//   }
-
-//     return JSON.stringify(freqCounter1) === JSON.stringify(freqCounter2)
-// }
-
-// console.log(sameFrequency(123, 321));
-
-// function areThereDuplicates(...args) {
-//   let freqCounter = {}
-//   for (let char of args){
-//     if (freqCounter[char]){
-//       freqCounter[char] += 1
-//       return true
-//     } else {
-//       freqCounter[char] = 1
-//     }
-//   }
-//   return false
-// }
-
-// console.log(areThereDuplicates(1, 2, 3, 3, "a"));
-
-// function twoSum(nums, target) {
-//   let previousValues = {};
-//   for (let i = 0; i < nums.length; i++) {
-//     let currentNumber = nums[i];
-//     let neededNumber = target - currentNumber;
-//     let index2 = previousValues[neededNumber];
-//     if (index2 != null) {
-//       return [index2, i];
-//     } else {
-//       previousValues[currentNumber] = i;
-//     }
-//   }
-// }
-
-// console.log(twoSum([1,2,3,4,5,6], 8))
-
-function twoSumIndexes(nums, target) {
-  let newObj = {};
-  for (let i = 0; i < nums.length; i++) {
-    let currentNumber = nums[i];
-    let difference = target - currentNumber;
-    if (newObj[difference]) {
-      return [newObj[difference], i];
-    } else {
-      newObj[currentNumber] = i;
-    }
-  }
+function areThereDuplicates(...args) {
+ // Two pointers
+ args.sort((a,b) => a > b);
+ let start = 0;
+ let next = 1;
+ while(next < args.length){
+   if(args[start] === args[next]){
+       return true
+   }
+   start++
+   next++
+ }
+ return false
 }
-function twoSumNumbers(nums, target) {
-  let newObj = {};
-  for (let i = 0; i < nums.length; i++) {
-    let currentNumber = nums[i];
-    let difference = target - currentNumber;
-    if (newObj[difference]) {
-      return [nums[newObj[difference]], nums[i]];
-    } else {
-      newObj[currentNumber] = i;
-    }
-  }
+function areThereDuplicates() {
+ return new Set(arguments).size !== arguments.length;
 }
-console.log(twoSumIndexes([1, 2, 3, 4, 5, 6], 11));
-console.log(twoSumNumbers([1, 2, 3, 4, 5, 6], 11));
+
+
+
+
+function averagePair(arr, num){
+ let start = 0
+ let end = arr.length-1;
+ while(start < end){
+   let avg = (arr[start]+arr[end]) / 2
+   if(avg === num) return true;
+   else if(avg < num) start++
+   else end--
+ }
+ return false;
+}
+function isSubsequence(str1, str2) {
+ var i = 0;
+ var j = 0;
+ if (!str1) return true;
+ while (j < str2.length) {
+   if (str2[j] === str1[i]) i++;
+   if (i === str1.length) return true;
+   j++;
+ }
+ return false;
+}
+function isSubsequence(str1, str2) {
+ if(str1.length === 0) return true
+ if(str2.length === 0) return false
+ if(str2[0] === str1[0]) return isSubsequence(str1.slice(1), str2.slice(1)) 
+ return isSubsequence(str1, str2.slice(1))
+}
+
+
+
+function maxSubarraySum(arr, num){
+   if (arr.length < num) return null;
+ 
+   let total = 0;
+   for (let i=0; i<num; i++){
+      total += arr[i];
+   }
+   let currentTotal = total;
+   for (let i = num; i < arr.length; i++) {
+      currentTotal += arr[i] - arr[i-num];
+      total = Math.max(total, currentTotal);
+   }
+   return total;
+}
+function minSubArrayLen(nums, sum) {
+ let total = 0;
+ let start = 0;
+ let end = 0;
+ let minLen = Infinity;
+ 
+ while (start < nums.length) {
+   // if current window doesn't add up to the given sum then
+		// move the window to right
+   if(total < sum && end < nums.length){
+     total += nums[end];
+			end++;
+   }
+   // if current window adds up to at least the sum given then
+		// we can shrink the window
+   else if(total >= sum){
+     minLen = Math.min(minLen, end-start);
+			total -= nums[start];
+			start++;
+   }
+   // current total less than required total but we reach the end, need this or else we'll be in an infinite loop
+   else {
+     break;
+   }
+ }
+ 
+ return minLen === Infinity ? 0 : minLen;
+}
+function findLongestSubstring(str) {
+ let longest = 0;
+ let seen = {};
+ let start = 0;
+ 
+ for (let i = 0; i < str.length; i++) {
+   let char = str[i];
+   if (seen[char]) {
+     start = Math.max(start, seen[char]);
+   }
+   // index - beginning of substring + 1 (to include current in count)
+   longest = Math.max(longest, i - start + 1);
+   // store the index of the next char so as to not double count
+   seen[char] = i + 1;
+ }
+ return longest;
+}
